@@ -1,0 +1,24 @@
+<h1>{{ getTitle() }}</h1>
+<img [src]="imageUrl" height="100px" />
+<button class="btn btn-primary" [class.active]="2 > 1">Save</button>
+<div (click)="onDivClicked()">
+  <button
+    [style.backgroundColor]="2 > 1 ? 'red' : 'blue'"
+    (click)="onCancel($event)"
+  >
+    Cancel
+  </button>
+  <input
+    #templateVariable
+    type="text"
+    (keyup.enter)="onKeyUpEnter(templateVariable.value)"
+  />
+  <input [(ngModel)]="twoWayBindingText" (keyup.enter)="onKeyUpEnter()" />
+</div>
+<h2>{{ courses.length }} Courses</h2>
+
+<ul>
+  <li *ngFor="let course of courses">
+    {{ course.name }}
+  </li>
+</ul>

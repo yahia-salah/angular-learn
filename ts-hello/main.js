@@ -1,0 +1,10 @@
+"use strict";
+exports.__esModule = true;
+var Like_1 = require("./Like");
+var likeButton = new Like_1.Like(500);
+likeButton.click();
+console.log("Number of Likes ", likeButton.numberOfLikes);
+console.log("Selected State ", likeButton.selected);
+likeButton.click();
+console.log("Number of Likes ", likeButton.numberOfLikes);
+console.log("Selected State ", likeButton.selected);

@@ -1,0 +1,7 @@
+<i
+  class="bi-heart-fill"
+  style="font-size: 1.25em"
+  [class.isHighlighted]="isLiked"
+  (click)="onClick()"
+></i
+><span> {{ numberOfLikes | number: "":"en-US" }}</span>

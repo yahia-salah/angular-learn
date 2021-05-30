@@ -1,0 +1,8 @@
+.bi-heart-fill {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.isHighlighted {
+  color: deeppink;
+}
