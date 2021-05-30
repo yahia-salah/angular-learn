@@ -11,9 +11,11 @@ import { TitlecaseComponent } from './titlecase/titlecase.component';
 import { TitleCaseOfThePipe } from './title-case-of-the.pipe';
 import { PanelComponent } from './panel/panel.component';
 import { LikeComponent } from './like/like.component';
+import { AmericanPhoneNumberFormatDirective } from './american-phone-number-format.directive';
+import { ZippyComponent } from './zippy/zippy.component';
 
 @NgModule({
-  declarations: [AppComponent, CourseComponent, CoursesComponent, StarComponent, TitlecaseComponent, TitleCaseOfThePipe, PanelComponent, LikeComponent],
+  declarations: [AppComponent, CourseComponent, CoursesComponent, StarComponent, TitlecaseComponent, TitleCaseOfThePipe, PanelComponent, LikeComponent, AmericanPhoneNumberFormatDirective, ZippyComponent],
   imports: [BrowserModule, FormsModule],
   providers: [CoursesService],
   bootstrap: [AppComponent],
