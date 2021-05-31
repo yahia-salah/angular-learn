@@ -1,4 +1,5 @@
-import { FormsModule } from '@angular/forms';
+import { SignupFormComponent } from './signup-form/signup-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoursesService } from './courses.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +16,7 @@ import { LikeComponent } from './like/like.component';
 import { AmericanPhoneNumberFormatDirective } from './american-phone-number-format.directive';
 import { ZippyComponent } from './zippy/zippy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +31,10 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     AmericanPhoneNumberFormatDirective,
     ZippyComponent,
     ContactFormComponent,
+    SignupFormComponent,
+    PasswordResetComponent,
   ],
-  imports: [BrowserModule, FormsModule, NgbModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule],
   providers: [CoursesService],
   bootstrap: [AppComponent],
 })

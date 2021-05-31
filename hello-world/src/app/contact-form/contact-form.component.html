@@ -1,7 +1,7 @@
 <form #f="ngForm" (ngSubmit)="submit(f.value)">
   <div ngModelGroup="personalInfo" #personalInfo="ngModelGroup">
     <div class="form-group">
-      <label for="firstName">First Name</label>
+      <label for="firstName" class="form-label">First Name</label>
       <input
         required
         minlength="3"
@@ -13,6 +13,7 @@
         id="firstName"
         type="text"
         class="form-control"
+        placeholder="First Name"
       />
       <div
         class="alert alert-danger"
@@ -31,7 +32,7 @@
   </div>
 
   <div class="form-group">
-    <label for="comment">Comment</label
+    <label for="comment" class="form-label">Comment</label
     ><textarea
       ngModel
       name="comment"
@@ -39,11 +40,18 @@
       cols="30"
       rows="10"
       class="form-control"
+      placeholder="Write your comment here..."
     ></textarea>
   </div>
-  <div class="checkbox">
-    <label
-      ><input type="checkbox" ngModel name="isSubscribed" id="isSubscribed" />
+  <div class="checkbox form-check form-switch">
+    <label class="form-check-label"
+      ><input
+        type="checkbox"
+        ngModel
+        name="isSubscribed"
+        id="isSubscribed"
+        class="form-check-input"
+      />
       Subscribe to mailing list</label
     >
   </div>
@@ -55,7 +63,7 @@
       name="contactMethod"
       #contactMethod="ngModel"
       id="contactMethod"
-      class="form-control"
+      class="form-control form-select"
     >
       <option value=""></option>
       <option *ngFor="let method of contactMethods" [value]="method.id">
@@ -69,13 +77,27 @@
     </div>
   </div>
   <div class="radio">
-    <label
-      ><input ngModel type="radio" name="gender" value="male" /> Male</label
+    <label class="form-check-label"
+      ><input
+        ngModel
+        type="radio"
+        name="gender"
+        value="male"
+        class="form-check-input"
+      />
+      Male</label
     >
   </div>
   <div class="radio">
-    <label
-      ><input ngModel type="radio" name="gender" value="female" /> Female</label
+    <label class="form-check-label"
+      ><input
+        ngModel
+        type="radio"
+        name="gender"
+        value="female"
+        class="form-check-input"
+      />
+      Female</label
     >
   </div>
   <p>{{ f.value | json }}</p>

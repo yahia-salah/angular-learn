@@ -1,0 +1,64 @@
+<form [formGroup]="form" (ngSubmit)="signUp()">
+  <div *ngIf="form.errors" class="alert alert-danger">
+    <div *ngIf="form.errors?.serverError">
+      There is server error, please try again later.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      formControlName="username"
+      id="username"
+      type="text"
+      class="form-control"
+    />
+    <div class="d-flex justify-content-center">
+      <div
+        *ngIf="username?.pending"
+        class="spinner-border text-primary"
+        role="status"
+      >
+        <span class="visually-hidden">Checking for uniqueness...</span>
+      </div>
+    </div>
+    <div
+      *ngIf="username?.touched && username?.invalid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="username?.errors?.required">Username is required</div>
+      <div *ngIf="username?.errors?.minlength">
+        Username should be
+        {{ username?.errors?.minlength?.requiredLength }} characters or more
+      </div>
+      <div *ngIf="username?.errors?.cannotContainCharacters">
+        Username can't contain
+        {{ username?.errors?.cannotContainCharacters | json }}
+      </div>
+      <div *ngIf="username?.errors?.shouldBeUnique">
+        Username is already taken
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      formControlName="password"
+      id="password"
+      type="password"
+      class="form-control"
+    />
+    <div
+      *ngIf="password?.touched && password?.invalid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="password?.errors?.required">Password is required</div>
+      <div *ngIf="password?.errors?.minlength">
+        Password should be
+        {{ password?.errors?.minlength?.requiredLength }} characters or more
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+    Sign Up
+  </button>
+</form>
