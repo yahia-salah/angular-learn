@@ -1,0 +1,20 @@
+<input
+  type="text"
+  id="newGenreName"
+  (keyup.enter)="createGenre(newGenreName)"
+  class="form-control"
+  #newGenreName
+/>
+<ul class="list-group">
+  <li *ngFor="let genre of genres" class="list-group-item">
+    <button (click)="updateGenre(genre)" class="btn btn-primary btn-sm">
+      Update
+    </button>
+    <button (click)="deleteGenre(genre)" class="btn btn-danger btn-sm">
+      Delete
+    </button>
+    <a [routerLink]="['.', genre._id]">{{ genre.name }}</a>
+  </li>
+</ul>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

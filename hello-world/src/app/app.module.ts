@@ -1,9 +1,16 @@
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RouterModule } from '@angular/router';
+import { ToastService } from './services/toast-service';
+import { BaseService } from './services/base.service';
+import { AppErrorHandler } from './common/errors/application-error-handler';
+import { GenreService } from './services/genre.service';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoursesService } from './courses.service';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
@@ -17,6 +24,9 @@ import { AmericanPhoneNumberFormatDirective } from './american-phone-number-form
 import { ZippyComponent } from './zippy/zippy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { GenresComponent } from './genres/genres.component';
+import { ToastsContainer } from './toasts-container/toasts-container.component';
+import { GenreDetailComponent } from './genre-detail/genre-detail.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +43,32 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     ContactFormComponent,
     SignupFormComponent,
     PasswordResetComponent,
+    GenresComponent,
+    GenreDetailComponent,
+    ToastsContainer,
+    NotFoundComponent,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgbModule],
-  providers: [CoursesService],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      { path: '', component: SignupFormComponent },
+      { path: 'passwordReset', component: PasswordResetComponent },
+      { path: 'genres/:id', component: GenreDetailComponent },
+      { path: 'genres', component: GenresComponent },
+      { path: '**', component: NotFoundComponent },
+    ]),
+  ],
+  providers: [
+    CoursesService,
+    BaseService,
+    GenreService,
+    ToastService,
+    //{ provide: ErrorHandler, useClass: AppErrorHandler },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

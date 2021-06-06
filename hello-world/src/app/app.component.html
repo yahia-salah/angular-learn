@@ -6,6 +6,8 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- <genres></genres>
+<br />
 <password-reset></password-reset>
 <br />
 <signup-form></signup-form>
@@ -37,7 +39,7 @@
       <td>Address: 456 Street name, IL</td>
     </tr>
   </table>
-</zippy>
+</zippy> -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
@@ -45,3 +47,22 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<ul ngbNav [activeId]="route.fragment | async" class="nav-tabs">
+  <li [ngbNavItem]="link.fragment" *ngFor="let link of links">
+    <a
+      *ngIf="link.fragment == 'genres'"
+      ngbNavLink
+      [routerLink]="[link.fragment]"
+      [queryParams]="{ sort: 'up' }"
+      >{{ link.title }}</a
+    >
+    <a
+      *ngIf="link.fragment != 'genres'"
+      ngbNavLink
+      [routerLink]="[link.fragment]"
+      >{{ link.title }}</a
+    >
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
