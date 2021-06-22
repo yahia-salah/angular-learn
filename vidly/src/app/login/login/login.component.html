@@ -1,0 +1,62 @@
+<form [formGroup]="form" class="form-signin" (ngSubmit)="signIn()">
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        id="inputEmail"
+        formControlName="email"
+        placeholder="Email address"
+        appAutofocus
+      />
+      <mat-icon matSuffix color="primary">email</mat-icon>
+      <mat-hint>Email address used to sign-up</mat-hint>
+      <mat-error *ngIf="email?.touched && email?.invalid">
+        <div *ngIf="email?.errors?.required">Email is required</div>
+        <div *ngIf="email?.errors?.email">Invalid email address</div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="hideShowPassword ? 'password' : 'text'"
+        id="inputPassword"
+        formControlName="password"
+        placeholder="Enter your password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hideShowPassword = !hideShowPassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hideShowPassword"
+        type="button"
+        tabindex="-1"
+      >
+        <mat-icon color="primary">{{
+          hideShowPassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-error *ngIf="password?.touched && password?.invalid">
+        <div *ngIf="password?.errors?.required">Password is required</div>
+        <div *ngIf="password?.errors?.minlength">
+          Password should be at least
+          {{ password?.errors?.minlength?.requiredLength }} characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Sign in
+  </button>
+</form>

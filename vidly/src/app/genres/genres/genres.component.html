@@ -1,0 +1,30 @@
+<mat-list role="list">
+  <mat-list-item
+    ><button
+      mat-mini-fab
+      color="primary"
+      matTooltip="Create New Genre"
+      matTooltipPosition="after"
+      matTooltipHideDelay="1000"
+      (click)="createGenre()"
+    >
+      <mat-icon>add</mat-icon>
+    </button></mat-list-item
+  >
+  <mat-list-item role="listitem" *ngFor="let genre of genres">
+    <button (click)="editGenre(genre)" mat-raised-button color="accent">
+      Edit
+    </button>
+    <button
+      (click)="deleteGenre(genre)"
+      mat-raised-button
+      color="warn"
+      style="margin-left: 5px"
+    >
+      Delete
+    </button>
+    <!-- <a [routerLink]="['.', genre._id]">{{ genre.name }}</a> -->
+    <!-- <a (click)="editGenre(genre)">{{ genre.name }}</a> -->
+    <span style="margin-left: 10px">{{ genre.name }}</span>
+  </mat-list-item>
+</mat-list>

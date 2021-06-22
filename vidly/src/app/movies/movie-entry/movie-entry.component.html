@@ -1,0 +1,101 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form">
+    <div>
+      <mat-form-field>
+        <mat-label>ID</mat-label>
+        <input matInput type="text" formControlName="id" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="title" />
+        <mat-error *ngIf="this.movTitle?.invalid && this.movTitle?.touched">
+          <div *ngIf="this.movTitle?.errors?.required">Title is required</div>
+          <div *ngIf="this.movTitle?.errors?.minlength">
+            Title should be at least
+            {{ this.movTitle?.errors?.minlength?.requiredLength }} characters
+          </div>
+          <div *ngIf="this.movTitle?.errors?.maxlength">
+            Title can't exceed
+            {{ this.movTitle?.errors?.maxlength?.requiredLength }} characters
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="genre">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let genre of genres" [value]="genre._id">
+            {{ genre.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.genre?.invalid && this.genre?.touched">
+          <div *ngIf="this.genre?.errors?.required">Genre is required</div>
+        </mat-error>
+      </mat-form-field>
+      <img
+        *ngIf="file || data?.movie?.thumbnail"
+        [src]="imageSrc"
+        style="max-width: 180px"
+      />
+      <app-file-upload
+        accept="image/*"
+        (fileSelected)="onFileSelected($event)"
+      ></app-file-upload>
+      <mat-form-field>
+        <mat-label>Number in Stock</mat-label>
+        <input matInput type="number" formControlName="numberInStock" />
+        <mat-error
+          *ngIf="this.numberInStock?.invalid && this.numberInStock?.touched"
+        >
+          <div *ngIf="this.numberInStock?.errors?.required">
+            Number in Stock is required
+          </div>
+          <div *ngIf="this.numberInStock?.errors?.min">
+            Number in Stock should be greater than or equal
+            {{ this.numberInStock?.errors?.min?.min }}
+          </div>
+          <div *ngIf="this.numberInStock?.errors?.max">
+            Number in Stock can't exceed
+            {{ this.numberInStock?.errors?.max?.max }}
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Daily Rental Rate</mat-label>
+        <input matInput type="number" formControlName="dailyRentalRate" />
+        <mat-error
+          *ngIf="this.dailyRentalRate?.invalid && this.dailyRentalRate?.touched"
+        >
+          <div *ngIf="this.dailyRentalRate?.errors?.required">
+            Daily Rental Rate is required
+          </div>
+          <div *ngIf="this.dailyRentalRate?.errors?.min">
+            Daily Rental Rate should be greater than or equal
+            {{ this.dailyRentalRate?.errors?.min?.min }}
+          </div>
+          <div *ngIf="this.dailyRentalRate?.errors?.max">
+            Daily Rental Rate can't exceed
+            {{ this.dailyRentalRate?.errors?.max?.max }}
+          </div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="false" color="accent">
+    Close
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="data"
+    color="primary"
+    (click)="save()"
+    [disabled]="this.form.invalid"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

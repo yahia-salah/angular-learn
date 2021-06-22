@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form">
+    <div>
+      <mat-form-field>
+        <mat-label>ID</mat-label>
+        <input matInput type="text" formControlName="id" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" />
+        <mat-error *ngIf="this.name?.invalid && this.name?.touched">
+          <div *ngIf="this.name?.errors?.required">Name is required</div>
+          <div *ngIf="this.name?.errors?.minlength">
+            Name should be at least
+            {{ this.name?.errors?.minlength?.requiredLength }} characters
+          </div>
+          <div *ngIf="this.name?.errors?.maxlength">
+            Name can't exceed
+            {{ this.name?.errors?.maxlength?.requiredLength }} characters
+          </div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="false" color="accent">
+    Close
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="data"
+    color="primary"
+    (click)="save()"
+    [disabled]="this.form.invalid"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,117 @@
+<form class="form-signin" [formGroup]="form" (ngSubmit)="signUp()">
+  <h2 class="form-signin-heading">Please sign up</h2>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        id="inputEmail"
+        formControlName="email"
+        placeholder="Email address"
+        appAutofocus
+      />
+      <mat-icon matSuffix color="primary">email</mat-icon>
+      <mat-error *ngIf="email?.touched && email?.invalid">
+        <div *ngIf="email?.errors?.required">Email is required</div>
+        <div *ngIf="email?.errors?.email">Invalid email address</div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Your name"
+      />
+      <mat-icon matSuffix color="primary">edit</mat-icon>
+      <mat-error *ngIf="name?.touched && name?.invalid">
+        <div *ngIf="name?.errors?.required">Name is required</div>
+        <div *ngIf="name?.errors?.minlength">
+          Name should be at least
+          {{ name?.errors?.minlength?.requiredLength }} characters
+        </div>
+        <div *ngIf="name?.errors?.maxlength">
+          Name shouldn't be more than
+          {{ name?.errors?.maxlength?.requiredLength }} characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="hideShowPassword ? 'password' : 'text'"
+        id="inputPassword"
+        formControlName="password"
+        placeholder="Enter your password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hideShowPassword = !hideShowPassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hideShowPassword"
+        type="button"
+        tabindex="-1"
+      >
+        <mat-icon color="primary">{{
+          hideShowPassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-error *ngIf="password?.touched && password?.invalid">
+        <div *ngIf="password?.errors?.required">Password is required</div>
+        <div *ngIf="password?.errors?.pattern">
+          Strong password requirement is not met
+        </div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm Password</mat-label>
+      <input
+        matInput
+        [type]="hideShowConfirmPassword ? 'password' : 'text'"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        placeholder="Re-enter your password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hideShowConfirmPassword = !hideShowConfirmPassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hideShowConfirmPassword"
+        type="button"
+        tabindex="-1"
+      >
+        <mat-icon color="primary">{{
+          hideShowConfirmPassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-error *ngIf="confirmPassword?.touched && confirmPassword?.invalid">
+        <div *ngIf="confirmPassword?.errors?.required">
+          Confirm password is required
+        </div>
+        <div *ngIf="confirmPassword?.errors?.confrimPasswordMismatch">
+          Confirm password doesn't match password
+        </div>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Sign up
+  </button>
+</form>

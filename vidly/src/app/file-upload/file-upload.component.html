@@ -1,0 +1,21 @@
+<mat-form-field>
+  <mat-label (click)="fileUpload.click()">{{
+    fileName || "No file uploaded yet."
+  }}</mat-label>
+  <input matInput disabled />
+  <button
+    mat-icon-button
+    matSuffix
+    color="primary"
+    (click)="fileUpload.click()"
+  >
+    <mat-icon>attach_file</mat-icon>
+  </button>
+  <input
+    hidden
+    (change)="onFileSelected($event)"
+    #fileUpload
+    type="file"
+    [accept]="accept"
+  />
+</mat-form-field>

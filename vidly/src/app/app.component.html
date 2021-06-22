@@ -1,0 +1,54 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #start>
+    <mat-nav-list>
+      <div *ngFor="let link of links">
+        <a
+          *ngIf="
+            link.visible == 'all' ||
+            (link.visible == 'loggedin' && authService.isLoggedIn()) ||
+            (link.visible == 'loggedout' && !authService.isLoggedIn())
+          "
+          mat-list-item
+          [routerLink]="link.path"
+          (click)="start.close()"
+        >
+          <mat-icon color="primary">{{ link.icon }}</mat-icon>
+          <span>{{ link.title }}</span>
+        </a>
+      </div>
+      <a
+        *ngIf="authService.isLoggedIn()"
+        mat-list-item
+        (click)="logout(); start.close()"
+      >
+        <mat-icon color="warn">logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-toolbar color="primary" class="sticky-toolbar">
+    <button mat-icon-button (click)="start.open()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>VIDLY</span>
+    <span class="example-spacer"></span>
+    <span *ngIf="authService.currentUser"
+      >Hi {{ authService.currentUser.name }}</span
+    >
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button *ngIf="!authService.isLoggedIn()" mat-menu-item (click)="login()">
+        <mat-icon color="primary">login</mat-icon>
+        <span>Login</span>
+      </button>
+      <button *ngIf="authService.isLoggedIn()" mat-menu-item (click)="logout()">
+        <mat-icon color="warn">logout</mat-icon> <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+  <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
+</mat-sidenav-container>
