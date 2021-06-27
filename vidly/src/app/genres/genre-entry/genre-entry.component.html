@@ -1,4 +1,6 @@
-<h1 mat-dialog-title>{{ title }}</h1>
+<h1 [dir]="dir" mat-dialog-title>
+  {{ title | translate }}
+</h1>
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="form">
     <div>
@@ -26,9 +28,9 @@
     </div>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="end" [dir]="dir">
   <button mat-raised-button [mat-dialog-close]="false" color="accent">
-    Close
+    {{ "Cancel" | translate }}
   </button>
   <button
     mat-raised-button
@@ -37,6 +39,6 @@
     (click)="save()"
     [disabled]="this.form.invalid"
   >
-    Save
+    {{ "Save" | translate }}
   </button>
 </mat-dialog-actions>

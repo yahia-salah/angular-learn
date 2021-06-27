@@ -3,7 +3,7 @@
     ><button
       mat-mini-fab
       color="primary"
-      matTooltip="Create New Movie"
+      [matTooltip]="'Create New Movie' | translate"
       matTooltipPosition="after"
       matTooltipHideDelay="1000"
       (click)="createMovie()"
@@ -13,7 +13,7 @@
   >
   <mat-list-item role="listitem" *ngFor="let movie of movies">
     <button (click)="editMovie(movie)" mat-raised-button color="accent">
-      Edit
+      {{ "Edit" | translate }}
     </button>
     <button
       (click)="deleteMovie(movie)"
@@ -21,7 +21,7 @@
       color="warn"
       style="margin-left: 5px"
     >
-      Delete
+      {{ "Delete" | translate }}
     </button>
     <!-- <a [routerLink]="['.', genre._id]">{{ genre.name }}</a> -->
     <!-- <a (click)="editGenre(genre)">{{ genre.name }}</a> -->

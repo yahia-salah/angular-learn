@@ -19,9 +19,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { BidiModule } from '@angular/cdk/bidi';
 
 @NgModule({
   imports: [
+    BidiModule,
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
@@ -44,6 +46,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatGridListModule,
   ],
   exports: [
+    BidiModule,
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,

@@ -13,7 +13,7 @@
           (click)="start.close()"
         >
           <mat-icon color="primary">{{ link.icon }}</mat-icon>
-          <span>{{ link.title }}</span>
+          <span i18n="&&menuTitle">{{ link.title | translate }}</span>
         </a>
       </div>
       <a
@@ -22,7 +22,7 @@
         (click)="logout(); start.close()"
       >
         <mat-icon color="warn">logout</mat-icon>
-        <span>Logout</span>
+        <span i18n>{{ "Logout" | translate }}</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -33,18 +33,20 @@
     <span>VIDLY</span>
     <span class="example-spacer"></span>
     <span *ngIf="authService.currentUser"
-      >Hi {{ authService.currentUser.name }}</span
+      >{{ "Hi" | translate }} {{ authService.currentUser.name }}</span
     >
+    <app-language-selector></app-language-selector>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>person</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button *ngIf="!authService.isLoggedIn()" mat-menu-item (click)="login()">
         <mat-icon color="primary">login</mat-icon>
-        <span>Login</span>
+        <span i18n>{{ "Login" | translate }}</span>
       </button>
       <button *ngIf="authService.isLoggedIn()" mat-menu-item (click)="logout()">
-        <mat-icon color="warn">logout</mat-icon> <span>Logout</span>
+        <mat-icon color="warn">logout</mat-icon>
+        <span i18n>{{ "Logout" | translate }}</span>
       </button>
     </mat-menu>
   </mat-toolbar>

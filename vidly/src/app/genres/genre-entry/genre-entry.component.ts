@@ -3,6 +3,7 @@ import { Genre } from './../../services/genre.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-genre-entry',
@@ -11,6 +12,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GenreEntryComponent implements OnInit {
   form: FormGroup;
+  dir: Direction;
   @Input() title: string = 'Title';
 
   constructor(
@@ -28,6 +30,7 @@ export class GenreEntryComponent implements OnInit {
         Validators.maxLength(50),
       ]),
     });
+    this.dir = document.documentElement.dir as Direction;
   }
 
   get name() {

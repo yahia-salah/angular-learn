@@ -1,10 +1,12 @@
+import { AuthorizationInterceptor } from './interceptors/authorization.interceptor';
+import { LanguageInterceptor } from './interceptors/language.interceptor';
 import {
   MoviesService,
   MoviesThumbnailUploadService,
 } from './services/movies.service';
 import { CustomSnackBarComponent } from './custom-snack-bar/custom-snack-bar.component';
 import { SnackBarService } from './services/snack-bar.service';
-import { SpinnerInterceptor } from './services/spinner.interceptor';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 import { MaterialModule } from './material.module';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -17,13 +19,18 @@ import { GenreDetailComponent } from './genres/genre-detail/genre-detail.compone
 import { GenresComponent } from './genres/genres/genres.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login/login.component';
 import { SignupComponent } from './login/signup/signup.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +43,14 @@ import { GenreEntryComponent } from './genres/genre-entry/genre-entry.component'
 import { MoviesComponent } from './movies/movies/movies.component';
 import { MovieEntryComponent } from './movies/movie-entry/movie-entry.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { LanguageSelectorComponent } from './language-selector/language-selector.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -56,6 +71,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     MoviesComponent,
     MovieEntryComponent,
     FileUploadComponent,
+    LanguageSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +82,15 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgScrollbarModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     GenreService,
@@ -77,6 +102,12 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     AuthGuard,
     AdminAuthGuard,
     SpinnerOverlayService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true,
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: LanguageInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

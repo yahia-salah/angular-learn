@@ -3,7 +3,7 @@
     ><button
       mat-mini-fab
       color="primary"
-      matTooltip="Create New Genre"
+      [matTooltip]="'Create New Genre' | translate"
       matTooltipPosition="after"
       matTooltipHideDelay="1000"
       (click)="createGenre()"
@@ -13,7 +13,7 @@
   >
   <mat-list-item role="listitem" *ngFor="let genre of genres">
     <button (click)="editGenre(genre)" mat-raised-button color="accent">
-      Edit
+      {{ "Edit" | translate }}
     </button>
     <button
       (click)="deleteGenre(genre)"
@@ -21,7 +21,7 @@
       color="warn"
       style="margin-left: 5px"
     >
-      Delete
+      {{ "Delete" | translate }}
     </button>
     <!-- <a [routerLink]="['.', genre._id]">{{ genre.name }}</a> -->
     <!-- <a (click)="editGenre(genre)">{{ genre.name }}</a> -->

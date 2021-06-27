@@ -1,0 +1,16 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" [matTooltip]="getLangName()">
+  <mat-icon>language</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let l of languages">
+    <button mat-menu-item (click)="changeLang(l.code)" [dir]="dir">
+      <mat-icon [color]="lang == l.code ? 'accent' : ''"
+        ><span class="material-icons">
+          {{
+            lang == l.code ? "radio_button_checked" : "radio_button_unchecked"
+          }}
+        </span></mat-icon
+      ><span>{{ l.name }}</span>
+    </button>
+  </ng-container>
+</mat-menu>

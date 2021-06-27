@@ -4,6 +4,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FileSelectedEventArgs } from 'src/app/file-upload/file-upload.component';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-movie-entry',
@@ -16,6 +17,7 @@ export class MovieEntryComponent implements OnInit {
   genres: Genre[] = [];
   file: File;
   imageSrc: string = '';
+  dir: Direction;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { movie: Movie; thumbnail: FormData },
@@ -46,6 +48,8 @@ export class MovieEntryComponent implements OnInit {
     });
 
     if (data.movie?.thumbnail) this.imageSrc = data.movie.thumbnail;
+
+    this.dir = document.documentElement.dir as Direction;
   }
 
   get movTitle() {

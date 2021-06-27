@@ -1,4 +1,4 @@
-import { SnackBarService } from './snack-bar.service';
+import { SnackBarService } from '../services/snack-bar.service';
 import {
   HttpHandler,
   HttpInterceptor,
@@ -17,6 +17,9 @@ export class SpinnerInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    if (req.url.includes('assets')) {
+      return next.handle(req);
+    }
     const started = Date.now();
     let ok: string;
     let originalError: any;

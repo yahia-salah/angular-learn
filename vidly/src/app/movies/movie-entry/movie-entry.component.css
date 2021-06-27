@@ -5,3 +5,7 @@ mat-form-field {
 app-file-upload {
   width: 100%;
 }
+
+ng-scrollbar {
+  height: 400px;
+}
