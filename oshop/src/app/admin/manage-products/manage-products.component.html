@@ -1,0 +1,75 @@
+<button
+  mat-raised-button
+  color="primary"
+  (click)="addNewProduct()"
+  style="margin-bottom: 10px"
+>
+  New Product
+</button>
+<mat-form-field style="width: 100%">
+  <mat-label>Filter</mat-label>
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Ex. Bread"
+    #input
+    autocomplete="off"
+  />
+</mat-form-field>
+<div style="overflow: auto">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    style="width: 100%; min-width: 600px"
+  >
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerID">
+        ID
+      </th>
+      <td mat-cell *matCellDef="let product">{{ product?.id }}</td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerTitle">
+        {{ "Title" }}
+      </th>
+      <td mat-cell *matCellDef="let product">{{ product?.title }}</td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerPrice">
+        {{ "Price" }}
+      </th>
+      <td mat-cell *matCellDef="let product">
+        {{ product?.price | currency: "USD":"symbol" }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef class="headerEdit">
+        <mat-icon>edit</mat-icon><mat-icon>delete</mat-icon>
+      </th>
+      <td mat-cell *matCellDef="let product">
+        <button
+          (click)="editProduct(product)"
+          mat-raised-button
+          color="accent"
+          style="margin-left: 5px"
+        >
+          {{ "Edit" }}
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    style="min-width: 600px"
+  ></mat-paginator>
+</div>

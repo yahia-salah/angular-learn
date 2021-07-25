@@ -1,0 +1,13 @@
+<div class="right" *ngIf="$employees">
+  <h3>Employees</h3>
+  <ul>
+    <li *ngFor="let employee of $employees | async">
+      <p>
+        ID: {{ employee.id
+        }}<button (click)="deleteEmployee(employee)">DELETE</button>
+      </p>
+      <p>Name: {{ employee.name }}</p>
+      <p>Salary: {{ employee.salary }}</p>
+    </li>
+  </ul>
+</div>

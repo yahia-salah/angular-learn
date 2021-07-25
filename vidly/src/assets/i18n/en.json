@@ -13,5 +13,7 @@
   "Create New Genre": "Create New Genre",
   "Edit Genre": "Edit Genre",
   "Create New Movie": "Create New Movie",
-  "Edit Movie": "Edit Movie"
+  "Edit Movie": "Edit Movie",
+  "Name":"Name",
+  "Title":"Title"
 }

@@ -20,7 +20,7 @@ import { GenresComponent } from './genres/genres/genres.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login/login.component';
@@ -83,6 +83,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     MaterialModule,
     NgScrollbarModule,
+    FlexLayoutModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {

@@ -6,9 +6,12 @@ import { ForbiddenError } from '../../common/errors/forbidden-error';
 import { BadRequestError } from '../../common/errors/bad-request-error';
 import { AppError } from '../../common/errors/application-error';
 import { Genre, GenreService } from '../../services/genre.service';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '../../services/toast-service';
 import { MatDialog } from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import * as _ from 'lodash';
 
 @Component({
@@ -18,6 +21,12 @@ import * as _ from 'lodash';
 })
 export class GenresComponent implements OnInit {
   genres: Genre[] = [];
+  displayedColumns: string[] = ['id', 'name', 'edit', 'delete'];
+  dataSource = new MatTableDataSource<Genre>(this.genres);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private service: GenreService,
     public toastService: ToastService,
@@ -26,12 +35,21 @@ export class GenresComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
+  ngAfterViewInit() {
+    this.dataSource=new MatTableDataSource(this.genres);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
       console.log(params.get('sort'));
 
       this.service.getAll().subscribe(
-        (genre: Genre[]) => (this.genres = genre),
+        (genre: Genre[]) => {
+          this.genres = genre;
+          this.dataSource.data=this.genres;
+        },
         (error: AppError) => this.errorHandler(error),
         () => this.showSuccess()
       );
@@ -64,7 +82,10 @@ export class GenresComponent implements OnInit {
 
             this.errorHandler(error);
           },
-          () => this.showSuccess()
+          () => {
+            this.dataSource._updateChangeSubscription();
+            this.showSuccess();
+          }
         );
       } else this.genres.splice(0, 1);
     });
@@ -83,7 +104,10 @@ export class GenresComponent implements OnInit {
 
         this.errorHandler(error);
       },
-      () => this.showSuccess()
+      () => {
+        this.dataSource._updateChangeSubscription();
+        this.showSuccess();
+      }
     );
   }
 
@@ -106,19 +130,19 @@ export class GenresComponent implements OnInit {
   }
 
   showSuccess() {
-    this.toastService.show('Operation Successful!', {
-      classname: 'bg-success text-light',
-      delay: 5000,
-    });
-    this.openSnackBar('Operation Successful!', ['bg-success']);
+    // this.toastService.show('Operation Successful!', {
+    //   classname: 'bg-success text-light',
+    //   delay: 5000,
+    // });
+    this.openSnackBar('Operation Successful!', ['success']);
   }
 
   showDanger(dangerTpl: string) {
-    this.toastService.show(dangerTpl, {
-      classname: 'bg-danger text-light',
-      delay: 5000,
-    });
-    this.openSnackBar(dangerTpl, ['bg-danger']);
+    // this.toastService.show(dangerTpl, {
+    //   classname: 'bg-danger text-light',
+    //   delay: 5000,
+    // });
+    this.openSnackBar(dangerTpl, ['failure']);
   }
 
   openSnackBar(message: string, classesNames?: string[]) {
@@ -147,7 +171,10 @@ export class GenresComponent implements OnInit {
 
             this.errorHandler(error);
           },
-          () => this.showSuccess()
+          () => {
+            this.dataSource._updateChangeSubscription();
+            this.showSuccess();
+          }
         );
       }
     });

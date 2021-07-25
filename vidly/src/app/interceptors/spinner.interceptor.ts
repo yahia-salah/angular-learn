@@ -49,9 +49,9 @@ export class SpinnerInterceptor implements HttpInterceptor {
         this._spinner.hide();
         if (ok == 'succeeded') {
           if (req.method != 'GET')
-            this._snackBar.show('Operation Successful!', ['bg-success']);
+            this._snackBar.show('Operation Successful!', ['success']);
         } else {
-          this._snackBar.show(JSON.stringify(originalError), ['bg-danger']);
+          this._snackBar.show(JSON.stringify(originalError), ['failure']);
         }
       })
     );

@@ -1,0 +1,104 @@
+<h1 mat-dialog-title dir="ltr">
+  {{ title }}
+</h1>
+
+<mat-dialog-content class="mat-typography">
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="15px"
+    fxLayoutAlign="space-between center"
+    fxLayoutAlign.lt-sm="space-evenly center"
+    style="margin-bottom: 5px; margin-top: 5px"
+  >
+    <div fxFlex="47%" fxFlexOrder="1">
+      <form [formGroup]="form" autocomplete="off">
+        <mat-form-field appearance="standard">
+          <mat-label>{{ "Title" }}</mat-label>
+          <input matInput type="text" formControlName="title" />
+          <mat-error *ngIf="this.Title?.invalid && this.Title?.touched">
+            <div *ngIf="this.Title?.errors?.required">Title is required</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>{{ "Price" }}</mat-label>
+          <span matPrefix>$ &nbsp;</span>
+          <input matInput type="number" formControlName="price" />
+          <mat-error *ngIf="this.Price?.invalid && this.Price?.touched">
+            <div *ngIf="this.Price?.errors?.required">Price is required</div>
+            <div *ngIf="this.Price?.errors?.min">
+              Price should be positive number
+            </div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>{{ "Category" }}</mat-label>
+          <mat-select formControlName="category">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let c of categories$ | async" [value]="c.id">
+              {{ c.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="this.Category?.invalid && this.Category?.touched">
+            <div *ngIf="this.Category?.errors?.required">
+              Category is required
+            </div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>{{ "Image Url" }}</mat-label>
+          <input matInput type="text" formControlName="imageUrl" url />
+          <mat-error *ngIf="this.ImageUrl?.invalid && this.ImageUrl?.touched">
+            <div *ngIf="this.ImageUrl?.errors?.required">
+              Image Url is required
+            </div>
+            <div *ngIf="this.ImageUrl?.errors?.url">Image Url is invalid</div>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+    <div fxFlex="47%" fxFlexOrder="2">
+      <mat-card *ngIf="this.Title?.value">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img
+            fxFlex="95%"
+            mat-card-image
+            [src]="this.ImageUrl?.value"
+            style="margin-top: 10px"
+          />
+        </div>
+        <mat-card-header>
+          <mat-card-title>{{ this.Title?.value }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{ this.Price?.value | currency: "USD":"symbol" }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    *ngIf="!hideDelete"
+    mat-raised-button
+    [mat-dialog-close]="'delete'"
+    color="warn"
+  >
+    {{ "Delete" }}
+  </button>
+  <button mat-raised-button [mat-dialog-close]="'cancel'" color="accent">
+    {{ "Cancel" }}
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="data"
+    color="primary"
+    (click)="save()"
+    [disabled]="this.form.invalid"
+  >
+    {{ "Save" }}
+  </button>
+</mat-dialog-actions>

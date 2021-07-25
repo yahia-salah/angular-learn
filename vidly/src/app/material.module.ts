@@ -19,7 +19,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { BidiModule } from '@angular/cdk/bidi';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -44,6 +46,8 @@ import { BidiModule } from '@angular/cdk/bidi';
     MatTooltipModule,
     MatTabsModule,
     MatGridListModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports: [
     BidiModule,
@@ -66,6 +70,8 @@ import { BidiModule } from '@angular/cdk/bidi';
     MatTooltipModule,
     MatTabsModule,
     MatGridListModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
 })
 export class MaterialModule {}

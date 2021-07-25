@@ -1,0 +1,62 @@
+<div fxLayout="row wrap" fxLayoutGap="10px grid" style="width: 100%">
+  <div fxFlex="20%" fxFlex.lt-sm="40%" *ngFor="let product of filteredProducts">
+    <mat-card>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img
+          fxFlex="95%"
+          mat-card-image
+          [src]="product.imageUrl"
+          style="margin-top: 10px"
+        />
+      </div>
+      <mat-card-header>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{ product.price | currency: "USD":"symbol" }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          *ngIf="getQuantity(product) == 0; else updateQuantity"
+          (click)="addToCart(product)"
+          mat-raised-button
+          color="accent"
+          style="width: 100%"
+        >
+          Add to Cart
+        </button>
+        <ng-template #updateQuantity>
+          <div
+            fxLayout="row"
+            style="width: 100%"
+            fxLayoutAlign="space-between center"
+          >
+            <div>
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="removeFromCart(product)"
+              >
+                -
+                <!-- <mat-icon>remove_circle</mat-icon> -->
+              </button>
+            </div>
+            <div>{{ getQuantity(product) }}</div>
+            <div>
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="addToCart(product)"
+              >
+                +
+                <!-- <mat-icon>add_circle</mat-icon> -->
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
