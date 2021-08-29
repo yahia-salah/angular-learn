@@ -1,0 +1,22 @@
+mat-form-field,
+mat-list-item {
+  width: 100%;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+mat-radio-button {
+  margin-bottom: 5px;
+}
+
+.widget {
+  height: fit-content;
+  border: 2px;
+  border-radius: 5px;
+  border-color: black;
+  border-style: dashed;
+}

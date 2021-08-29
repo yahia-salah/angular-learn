@@ -1,0 +1,159 @@
+<div fxLayout="row wrap" fxLayoutGap="10px grid" style="width: 100%">
+  <div fxFlex="50%" fxFlex.lt-md="100%">
+    <form [formGroup]="form" style="max-width: 500px; width: 100%">
+      <h1>Shipping Address</h1>
+      <div>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            autocomplete="off"
+            placeholder="Your Full Name"
+          />
+          <mat-error *ngIf="this.name?.invalid && this.name?.touched">
+            <div *ngIf="this.name?.errors?.required">Name is required</div>
+            <div *ngIf="this.name?.errors?.minlength">
+              Name should be at least
+              {{ this.name?.errors?.minlength?.requiredLength }} characters
+            </div>
+            <div *ngIf="this.name?.errors?.maxlength">
+              Name can't exceed
+              {{ this.name?.errors?.maxlength?.requiredLength }} characters
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Address Line 1</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="addressLine1"
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="this.addressLine1?.invalid && this.addressLine1?.touched"
+          >
+            <div *ngIf="this.addressLine1?.errors?.required">
+              Address Line1 is required
+            </div>
+            <div *ngIf="this.addressLine1?.errors?.minlength">
+              Address Line 1 should be at least
+              {{ this.addressLine1?.errors?.minlength?.requiredLength }}
+              characters
+            </div>
+            <div *ngIf="this.addressLine1?.errors?.maxlength">
+              Address Line 1 can't exceed
+              {{ this.addressLine1?.errors?.maxlength?.requiredLength }}
+              characters
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Address Line 2</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="addressLine2"
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="this.addressLine2?.invalid && this.addressLine2?.touched"
+          >
+            <div *ngIf="this.addressLine2?.errors?.minlength">
+              Address Line 2 should be at least
+              {{ this.addressLine2?.errors?.minlength?.requiredLength }}
+              characters
+            </div>
+            <div *ngIf="this.addressLine2?.errors?.maxlength">
+              Address Line 2 can't exceed
+              {{ this.addressLine2?.errors?.maxlength?.requiredLength }}
+              characters
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option>None</mat-option>
+            <!-- <mat-option *ngFor="let city of citys" [value]="city._id">
+                  {{ city.name }}
+                </mat-option> -->
+            <mat-option value="1">Test</mat-option>
+          </mat-select>
+          <mat-error *ngIf="this.city?.invalid && this.city?.touched">
+            <div *ngIf="this.city?.errors?.required">City is required</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Mobile Phone</mat-label>
+          <span matPrefix>+2 &nbsp;</span>
+          <input
+            matInput
+            type="text"
+            formControlName="phone"
+            autocomplete="off"
+            placeholder="phone"
+          />
+          <mat-error *ngIf="this.phone?.invalid && this.phone?.touched">
+            <div *ngIf="this.phone?.errors?.required">
+              Mobile phone number is required
+            </div>
+            <div *ngIf="this.phone?.errors?.pattern">
+              Invalid mobile phone number
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <h1>Payment Method</h1>
+      <mat-radio-group
+        aria-label="Select an option"
+        color="accent"
+        formControlName="paymentMethod"
+      >
+        <mat-radio-button value="1">Cash on Delivery</mat-radio-button>
+        <mat-radio-button value="2">Paypal</mat-radio-button>
+        <mat-radio-button value="3" disabled>Credit Card</mat-radio-button>
+      </mat-radio-group>
+      <div style="width: 100%">
+        <button
+          [disabled]="this.form.invalid"
+          mat-raised-button
+          color="primary"
+          style="margin-top: 10px; float: right"
+          (click)="placeOrder()"
+        >
+          Place Order
+        </button>
+      </div>
+    </form>
+  </div>
+  <div fxFlex="50%" fxFlex.lt-md="100%" class="widget">
+    <div style="padding: 10px; width: 100%">
+      <h1>Order Summary</h1>
+      <p>You have {{ cart?.TotalQuantity }} items in your shopping cart.</p>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let item of cart?.items"
+          >{{ item.quantity }} x {{ item.product.title }}
+          <span style="position: absolute; right: 10px">{{
+            item.TotalPrice | currency: "USD":"symbol"
+          }}</span></mat-list-item
+        >
+        <mat-list-item style="font-weight: bold"
+          >Total<span style="position: absolute; right: 10px">{{
+            cart?.TotalPrice | currency: "USD":"symbol"
+          }}</span></mat-list-item
+        >
+      </mat-list>
+    </div>
+  </div>
+</div>
